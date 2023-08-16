@@ -1,5 +1,5 @@
 class Restaurant {
-  final String name;
+  final String? name;
   final String? email;
   final String? address;
   final String? description;

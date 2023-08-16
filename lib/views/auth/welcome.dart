@@ -3,8 +3,6 @@
 import 'package:food_order/views/auth/sign_in.dart';
 import 'package:food_order/views/auth/sign_up.dart';
 import 'package:flutter/material.dart';
-import 'package:food_order/views/restaurant%20page/res.scaffold.dart';
-import 'package:food_order/views/user%20page/home/home.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -25,7 +23,6 @@ class Welcome extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => SignUp(
-                      widgetToBeNavigated: Home(),
                       hintText: 'Create a username',
                       labelText: 'Username',
                       signUpMethod:"user"
@@ -50,7 +47,6 @@ class Welcome extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => SignUp(
-                      widgetToBeNavigated: ResScaffold(),
                       hintText: "Enter your restaurant's name",
                       labelText: "Name",
                       signUpMethod: "restaurant",

@@ -41,7 +41,7 @@ class _SignInState extends State<SignIn> {
     Auth auth = Auth();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up"),
+        title: const Text("Sign In"),
       ),
       body: Center(
         child: Form(
@@ -96,10 +96,11 @@ class _SignInState extends State<SignIn> {
                           ),
                           (route) => false);
                       } else if (type == "restaurant") {
+                        String name = await db.getName(FirebaseAuth.instance.currentUser!.uid);
                          Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder:(context) => ResScaffold(),
+                            builder:(context) => ResScaffold(name: name,),
                           ),
                           (route) => false);
                       }
@@ -111,7 +112,7 @@ class _SignInState extends State<SignIn> {
                     fixedSize: Size(150, 75),
                   ),
                   child: Text(
-                    "Sign Up",
+                    "Sign In",
                     style: TextStyle(fontSize: 28),
                   ),
                 ),

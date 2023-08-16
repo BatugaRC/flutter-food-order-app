@@ -46,4 +46,10 @@ class Database {
     return snapshot.get("type");
   }
 
+  Future<String> getName(String uid) async {
+    DocumentSnapshot snapshot = await restaurants.doc(uid).get();
+    return snapshot.get("name");
+  }
+
+
 }

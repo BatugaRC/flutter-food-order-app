@@ -1,19 +1,22 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, no_logic_in_create_state
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_order/services/database.dart';
 import 'package:food_order/utils/show_error_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:food_order/views/restaurant%20page/res.scaffold.dart';
 
 import '../../services/auth.dart';
+import '../user page/home/home.dart';
 
 class SignUp extends StatefulWidget {
-  final Widget widgetToBeNavigated;
   final String hintText;
   final String labelText;
   final String signUpMethod;
-  const SignUp({Key? key, required this.widgetToBeNavigated, required this.hintText, required this.labelText, required this.signUpMethod}) : super(key: key);
+  const SignUp({Key? key, required this.hintText, required this.labelText, required this.signUpMethod}) : super(key: key);
 
   @override
-  State<SignUp> createState() => _SignUpState(widgetToBeNavigated, hintText, labelText, signUpMethod);
+  State<SignUp> createState() => _SignUpState(hintText, labelText, signUpMethod);
 }
 
 class _SignUpState extends State<SignUp> {
@@ -21,12 +24,12 @@ class _SignUpState extends State<SignUp> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _address;
-  final Widget widgetToBeNavigated;
+
   final String hintText;
   final String labelText;
   final String signUpMethod;
 
-  _SignUpState(this.widgetToBeNavigated, this.hintText, this.labelText, this.signUpMethod);
+  _SignUpState(this.hintText, this.labelText, this.signUpMethod);
 
   @override
   void initState() {
@@ -48,6 +51,7 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    Database db = Database();
     Auth auth = Auth();
     return Scaffold(
       appBar: AppBar(
@@ -137,7 +141,7 @@ class _SignUpState extends State<SignUp> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => widgetToBeNavigated,
+                            builder: (context) => Home(),
                           ),
                           (route) => false,
                         );
@@ -148,10 +152,11 @@ class _SignUpState extends State<SignUp> {
                         String result =
                           await auth.signUpAsRestaurant(username, email, password, address);
                       if (result == "0") {
+                        String name = await db.getName(FirebaseAuth.instance.currentUser!.uid);
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => widgetToBeNavigated,
+                            builder: (context) => ResScaffold(name: name),
                           ),
                           (route) => false,
                         );

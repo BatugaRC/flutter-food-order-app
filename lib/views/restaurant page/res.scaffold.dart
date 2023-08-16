@@ -1,42 +1,41 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, no_logic_in_create_state
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_order/models/res_model.dart';
 import 'package:food_order/services/auth.dart';
-import 'package:food_order/services/database.dart';
 import 'package:food_order/views/auth/welcome.dart';
+import 'package:food_order/views/restaurant%20page/notifications.dart';
+import 'package:food_order/views/restaurant%20page/res_profile.dart';
 
 class ResScaffold extends StatefulWidget {
-  const ResScaffold({super.key});
+  final String name;
+  const ResScaffold({super.key, required this.name});
 
   @override
-  State<ResScaffold> createState() => _ResScaffoldState();
+  State<ResScaffold> createState() => _ResScaffoldState(name);
 }
 
 class _ResScaffoldState extends State<ResScaffold> {
+  final String name;
+  int _selectedIndex = 0;
+
+  _ResScaffoldState(this.name);
+  void _onTapValue(int value) {
+    setState(() {
+      _selectedIndex = value;
+    });
+  }
+  final List<Widget> _widgets = <Widget>[
+    const ResProfile(),
+    const Notifications()
+  ];
   @override
   Widget build(BuildContext context) {
-    String id = FirebaseAuth.instance.currentUser!.uid;
-    Database db = Database();
     Auth auth = Auth();
-    return StreamBuilder<DocumentSnapshot>(
-        stream: db.getRestaurantData(id),
-        builder: (context, snapshot) {
-          final data = snapshot.data;
-          final Restaurant restaurant = Restaurant(
-            public: data?["public"],
-            description: data?["description"],
-            name: data?["name"],
-            email: data?["email"],
-            address: data?["address"],
-            foods: data?["foods"],
-          );
           return Scaffold(
             appBar: AppBar(
-              title: Text(restaurant.name),
+              title: Text(name),
             ),
+            body: _widgets.elementAt(_selectedIndex),
             floatingActionButton: FloatingActionButton(
               onPressed: () async {
                 await auth.signOut();
@@ -50,7 +49,25 @@ class _ResScaffoldState extends State<ResScaffold> {
               },
               child: Icon(Icons.logout),
             ),
+            bottomNavigationBar: BottomNavigationBar(
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.store,
+                  ),
+                  label: "Restaurant",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.notifications,
+                  ),
+                  label: "Notifications",
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              onTap:(value) => _onTapValue(value),
+            ),
           );
-        });
+        }
   }
-}
+
