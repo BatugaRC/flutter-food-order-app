@@ -7,13 +7,14 @@ class Database {
   CollectionReference users = FirebaseFirestore.instance.collection("users");
   CollectionReference restaurants = FirebaseFirestore.instance.collection("restaurants");
   
-  Future<void> createUser(String username, String email, String uid, String address) async {
+  Future<void> createUser(String username, String email, String uid, String address, String type) async {
     await users.doc(uid).set({
       "username" : username,
       "email" : email,
       "messages": [],
       "orders": [],
       "address" : address,
+      "type": type
     });
   }
 
@@ -38,6 +39,11 @@ class Database {
 
   Stream<DocumentSnapshot> getRestaurantData(String id) {
     return restaurants.doc(id).snapshots();
+  }
+
+  Future<String> getType(String uid) async {
+    DocumentSnapshot snapshot = await users.doc(uid).get();
+    return snapshot.get("type");
   }
 
 }

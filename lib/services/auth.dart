@@ -11,7 +11,13 @@ class Auth {
         email: email,
         password: password,
       );
-      await db.createUser(username, email, auth.currentUser!.uid, address);
+      await db.createUser(
+        username,
+        email,
+        auth.currentUser!.uid,
+        address,
+        "user",
+      );
       await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -30,6 +36,13 @@ class Auth {
       await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
+      );
+      await db.createUser(
+        username,
+        email,
+        auth.currentUser!.uid,
+        address,
+        "restaurant",
       );
       await db.createRestaurant(
         username,

@@ -35,7 +35,6 @@ class RestaurantList extends StatelessWidget {
             },
           ).toList();
           final List<Restaurant> publicRestaurants = restaurants.where((res) => res.public == true).toList();
-
             return ListView.builder(
               itemCount: publicRestaurants.length,
               itemBuilder: (context, index) {

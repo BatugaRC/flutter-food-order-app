@@ -19,108 +19,72 @@ class Welcome extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignUp(
-                          widgetToBeNavigated: Home(),
-                          hintText: 'Create a username',
-                          labelText: 'Username',
-                          signUpMethod:"user"
-                        ),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(fixedSize: Size(150, 75)),
-                  child: Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      fontSize: 30,
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignUp(
+                      widgetToBeNavigated: Home(),
+                      hintText: 'Create a username',
+                      labelText: 'Username',
+                      signUpMethod:"user"
                     ),
                   ),
+                );
+              },
+              style: ElevatedButton.styleFrom(fixedSize: Size(150, 75)),
+              child: Text(
+                "Sign Up",
+                style: TextStyle(
+                  fontSize: 30,
                 ),
-                SizedBox(
-                  width: 30,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignUp(
-                          widgetToBeNavigated: ResScaffold(),
-                          hintText: "Enter your restaurant's name",
-                          labelText: "Name",
-                          signUpMethod: "restaurant",
-                        ),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(fixedSize: Size(150, 75)),
-                  child: Text(
-                    "Sign Up as Restaurant",
-                    style: TextStyle(
-                      fontSize: 22,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
             SizedBox(
               height: 75,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignIn(
-                          widgetToBeNavigated: Home(),
-                        ),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(fixedSize: Size(150, 75)),
-                  child: Text(
-                    "Sign In",
-                    style: TextStyle(
-                      fontSize: 30,
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignUp(
+                      widgetToBeNavigated: ResScaffold(),
+                      hintText: "Enter your restaurant's name",
+                      labelText: "Name",
+                      signUpMethod: "restaurant",
                     ),
                   ),
+                );
+              },
+              style: ElevatedButton.styleFrom(fixedSize: Size(150, 75)),
+              child: Text(
+                "Sign Up as Restaurant",
+                style: TextStyle(
+                  fontSize: 22,
                 ),
-                SizedBox(
-                  width: 30,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignIn(
-                          widgetToBeNavigated: ResScaffold(),
-                        ),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(150, 75),
+              ),
+            ),
+            SizedBox(
+              height: 75,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignIn(),
                   ),
-                  child: Text(
-                    "Sign In as Resturant",
-                    style: TextStyle(
-                      fontSize: 22,
-                    ),
-                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(fixedSize: Size(150, 75)),
+              child: Text(
+                "Sign In",
+                style: TextStyle(
+                  fontSize: 30,
                 ),
-              ],
+              ),
             ),
           ],
         ),
